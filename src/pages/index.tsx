@@ -1,17 +1,36 @@
+import { Box, Heading } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import styles from 'src/styles/Home.module.css'
+import { useState } from 'react'
+import { Input } from 'src/components/Input'
+import { TodoLists } from 'src/components/TodoLists'
 
 const Home: NextPage = () => {
+  const [value, setValue] = useState<string>('')
+  const [data, setData] = useState<Array<{ data: string; isDone: boolean }>>([])
+  const handleSubmit: React.FormEventHandler<HTMLDivElement> = (e): void => {
+    e.preventDefault()
+    if (value !== '') setData([...data, { data: value, isDone: false }])
+    setValue('')
+  }
   return (
-    <div className={styles.container}>
+    <Box w={500} px={8}>
       <Head>
-        <title>Create Next App</title>
-        <meta name="description" content="next app template" />
+        <title>My Todos</title>
+        <meta name="description" content="My Todos" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <p>Hello Wolrd</p>
-    </div>
+      <Heading my={4}>My Todos</Heading>
+      <Input
+        value={value}
+        onChange={(e: React.FormEvent<HTMLInputElement>) =>
+          setValue(e.currentTarget.value)
+        }
+        onSubmit={handleSubmit}
+        mb={4}
+      />
+      <TodoLists data={data} />
+    </Box>
   )
 }
 
