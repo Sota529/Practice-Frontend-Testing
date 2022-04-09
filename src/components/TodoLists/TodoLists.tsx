@@ -3,7 +3,7 @@ import { TodoItems } from '../TodoItems'
 
 interface Props {
   data: Array<{
-    data: string
+    text: string
     isDone: boolean
   }>
 }
@@ -12,7 +12,9 @@ interface Props {
 export const TodoLists: VFC<Props> = memo(({ data }) => {
   return (
     <div>
-      <TodoItems data={data} />
+      {data.map((d, i) => {
+        return <TodoItems data={d} key={i} />
+      })}
     </div>
   )
 })

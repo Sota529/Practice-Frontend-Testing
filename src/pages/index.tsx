@@ -7,10 +7,10 @@ import { TodoLists } from 'src/components/TodoLists'
 
 const Home: NextPage = () => {
   const [value, setValue] = useState<string>('')
-  const [data, setData] = useState<Array<{ data: string; isDone: boolean }>>([])
+  const [data, setData] = useState<Array<{ text: string; isDone: boolean }>>([])
   const handleSubmit: React.FormEventHandler<HTMLDivElement> = (e): void => {
     e.preventDefault()
-    if (value !== '') setData([...data, { data: value, isDone: false }])
+    if (value !== '') setData([...data, { text: value, isDone: false }])
     setValue('')
   }
   return (
